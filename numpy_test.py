@@ -116,5 +116,124 @@ class MyTestCase(unittest.TestCase):
         # print(arr.dtype)
 
 
+
+    def test_numpy_reshaping(self):
+        """
+        by reshaping an array we can add or remove dimensions or change number of elements in each dimension.
+        """
+
+        ## Reshaping 1-D to N-D array
+        arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+
+        print("arr:", str(arr))
+        print("reshaping 1-D to 2-D by arr:", str(arr.reshape((4, 4))))
+        print("reshaping 1-D to 2-D by numpy:", str(np.reshape(arr, (2, 8))))
+
+        print("reshaping 1-D to 3-D by arr:", str(arr.reshape((2, 2, 4))))
+        print("reshaping 1-D to 2-D by numpy:", str(np.reshape(arr, (2, 2, 4))))
+
+        ## Reshaping N-D to 1-D array
+        arr2 = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        print("arr:", str(arr2))
+
+        print("reshaping 2-D to 1-D by arr:", str(np.reshape(arr2, (9))))
+        print("reshaping 2-D to 1-D by arr:", str(np.reshape(arr2, (-1))))
+
+        ## Unknown dimension
+        """
+        차원 사이즈를 모르더라도, 하나의 차원으로 -1을 지정하면 reshaping이 가능
+        """
+
+        ## reshaping이 불가는한 경우 ValueError 발생
+        # arr = np.array([1, 2, 3, 4, 5, 6, 7])
+        print("arr:", str(arr))
+        print("unknown reshaping 1-D to 2-D by arr:", str(arr.reshape((-1, 4))))
+        print("unknown reshaping 1-D to 2-D by arr:", str(arr.reshape((4, -1))))
+        print("unknown reshaping 1-D to 3-D by arr:", str(arr.reshape((2, 2, -1))))
+
+
+    def test_numpy_resize(self):
+        """
+         Array can be of any shape but to resize it we just need the size
+         During resizing numpy append zeros if values at a particular place is missing
+         resize와 reshape의 차이점은 resize는 원본 배열 자체를 변경하지만, reshape는 원본 배열은 그대로 두고 새로운 배열을 반환한다는 점
+        """
+        arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+
+        print("arr:", str(arr))
+        arr.resize(4, 4)
+        print("resize 1D to 2D:", arr)
+        arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16])
+        arr.resize(2, 2, 4)
+        print("resize 1D to 3D:", arr)
+
+    def test_numpy_stack(self):
+        """
+        stack() 함수는 여러개의 배열을 하나로 합치고 새로운 차원을 추가한다.
+        ex) arr1 = [], arr2 = [] -> np.stack((arr1, arr2), axis=0) -> [[], []]
+        차원 -1 만큼 axis 지정 가능
+        axis: 축의 방향
+        stack() is used for joining multiple NumPy arrays.
+        Unlike, concatenate(), it joins arrays along a new axis. It returns a NumPy array.
+        """
+
+        arr1 = np.array([1, 2, 3])
+        arr2 = np.array([4, 5, 6])
+
+        stack = np.stack((arr1, arr2), axis=0)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[0, :]: ", stack[0, :])
+        print("stack[1, :]: ", stack[1, :])
+
+        stack = np.stack((arr1, arr2), axis=1)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[:, 0]: ", stack[:, 0])
+        print("stack[:, 1]: ", stack[:, 1])
+
+
+        arr1 = np.array([
+            [1, 2, 3],
+            [4, 5, 6]
+        ])
+        arr2 = np.array([
+            [7, 8, 9],
+            [10, 11, 12]
+        ])
+
+        stack = np.stack((arr1, arr2), axis=0)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[0, :, :]: ", stack[0, :, :])
+        print("stack[1, :, :]: ", stack[1, :, :])
+
+        stack = np.stack((arr1, arr2), axis=1)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[:, 0, :]: ", stack[:, 0, :])
+        print("stack[:, 1, :]: ", stack[:, 1, :])
+
+        stack = np.stack((arr1, arr2), axis=2)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[:, :, 0]: ", stack[:, :, 0])
+        print("stack[:, :, 1]: ", stack[:, :, 1])
+
+        arr1 = np.array([1, 2, 3])
+        arr2 = np.array([4, 5, 6])
+        arr3 = np.array([7, 8, 9])
+
+        stack = np.stack((arr1, arr2, arr3), axis=0)
+        print("stack: ", stack)
+        print("stack.shape: ", stack.shape)
+        print("stack[0, :]: ", stack[0, :])
+        print("stack[1, :]: ", stack[1, :])
+        print("stack[2, :]: ", stack[2, :])
+
+
+    def test_numpy_splitting(self):
+
+
 if __name__ == '__main__':
     unittest.main()
