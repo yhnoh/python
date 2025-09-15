@@ -99,9 +99,11 @@ class MyTestCase(unittest.TestCase):
 
         nba_pd = pd.read_csv("./files/nba.csv", index_col="Name")
         display(nba_pd)
+
         ## Selecting Multiple Columns
         display(nba_pd[["Age", "College", "Salary"]].head(5))
 
+        ## loc 메서드를 활용한 인덱스 라벨로 데이터 찾기
         ## Selecting Multiple Rows
         display(nba_pd.loc[["Avery Bradley", "Jae Crowder"]])
 
@@ -109,22 +111,56 @@ class MyTestCase(unittest.TestCase):
         display(nba_pd.loc[["Avery Bradley", "Jae Crowder"], ["Team", "Number", "Position"]])
         display(nba_pd.loc["Jae Crowder":, ["Team", "Number", "Position"]])
 
-        ## Selecting Rows By Position with iloc
-
+        ## iloc 메서드를 활용한 인덱스 위치로 데이터 찾기
         display(nba_pd.iloc[0])
         display(nba_pd.iloc[[3, 5, 7]])
         display(nba_pd.iloc[0:3])
-
+        display(nba_pd.iloc[:, 0:2])
         ## Selecting Rows and Columns By Position with iloc
         display(nba_pd.iloc[[3, 4], [1, 2]])
         display(nba_pd.iloc[:, [1, 2]])
 
-        ## Other Useful Indexing Methods
+        ## 데이터를 찾기위한 유용한 메서드
         display(nba_pd.head(5))
         display(nba_pd.tail(5))
         display(nba_pd.at["Avery Bradley", "Age"])
         display(nba_pd.query("Age > 25 and College == 'Duke'"))
 
+    def test_select_dataframe_by_condition(self):
+        data = {
+            'Name': ['A', 'B', 'C', 'D', 'E'],
+            'Age': [10, 20, 30, 40, 50],
+            'Salary': [1000, 2000, 3000, 4000, 5000],
+        }
+
+        df = pd.DataFrame(data)
+
+        ## loc 메서드를 이용한 조건에 맞는 데이터 찾기
+        print()
+        print("loc 메서드를 이용한 조건에 맞는 데이터 찾기")
+        display(
+            df.loc[
+                    (df["Age"] >= 20) & (df["Salary"] >= 3000) & (df["Name"].str.startswith('D')),
+                    ["Name", "Age"]
+                ]
+        )
+
+        ## Numpy를 이용한 조건에 맞는 데이터 찾기
+        print()
+        print("Numpy를 이용한 조건에 맞는 데이터 찾기")
+        np_where = np.where((df["Age"] >= 20) & (df["Salary"] >= 3000) & (df["Name"].str.startswith('D')))
+        print(np_where)
+        display(df.loc[np_where])
+
+        print()
+        print("query() 메서드를 이용한 조건에 맞는 데이터 찾기")
+        display(df.query("Age >= 20 and Salary >= 3000 and Name.str.startswith('D')"))
+
+        print()
+        print("eval() 메서드를 이용한 조건에 맞는 데이터 찾기")
+        df_eval = df.eval("Age >= 20 and Salary >= 3000 and Name.str.startswith('D')")
+        print(df_eval)
+        display(df[df_eval])
 
 if __name__ == '__main__':
     unittest.main()
