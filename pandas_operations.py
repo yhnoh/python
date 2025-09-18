@@ -127,3 +127,20 @@ class MyTestCase(unittest.TestCase):
         print(df.drop_duplicates(subset=['Name'], keep="last"))
         ## 중복된 값 모두 제거
         print(df.drop_duplicates(subset=['Name'], keep=False))
+
+    def test_change_datatype(self):
+
+        df = pd.DataFrame({
+            'Name': ['John', 'Alice', 'Bob', 'Eve', 'Charlie'],
+            'Age': [25, 30, 22, 35, 28],
+            'Gender': ['Male', 'Female', 'Male', 'Female', 'Male'],
+            'Salary': [50000, 55000, 40000, 70000, 48000]
+        })
+
+
+        print(df.dtypes)
+
+        print()
+        print("astype() 메서드를 통한 데이터 타입 변환")
+        df = df.astype({"Age": float, "Salary": float})
+        print(df.dtypes)
