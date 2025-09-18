@@ -358,6 +358,63 @@ class MyTestCase(unittest.TestCase):
         print("join() 메서드를 이용한 DataFrame 합치기 > MultiIndex 합치기")
         print(df1.join(df2))
 
+    def test_sort_dataframe(self):
+        """
+        by: Specifies the column to sort by.
+        ascending: A boolean (True for ascending, False for descending).
+        inplace: If True, the original DataFrame is modified otherwise a new sorted DataFrame is returned.
+        na_position: Controls where NaN values are placed. Use 'first' to put NaNs at the top or 'last' (default) to place them at the end.
+        ignore_index: If True, resets the index after sorting.
+        """
+        data = {'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+                'Age': [25, 30, 35, 40],
+                'Score': [85, 90, 95, 80]}
+        df = pd.DataFrame(data)
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬")
+        display(df.sort_values(by='Score'))
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬 > ascending 옵션을 활용한 내림차순 정렬")
+        display(df.sort_values(by='Score', ascending=False))
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬 > Multiple Columns 정렬")
+        display(df.sort_values(by=["Age", "Score"]))
+
+        df_nan = pd.DataFrame({
+            "Name": ["Alice", "Bob", "Charlie", "David"],
+            "Age": [28, 22, None, 22]
+        })
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬 > na_position 옵션을 활용한 None 값의 위치 정렬")
+        display(df_nan.sort_values(by="Age", na_position="first"))
+
+        data = {
+            'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+            'Age': [25, 30, 35, 40],
+            'Score': [85, 90, 95, 80]
+        }
+        df = pd.DataFrame(data)
+
+        print()
+        print("sort_index() 메서드를 이용한 DataFrame 정렬")
+        display(df.sort_index())
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬 > kind 옵션을 활용한 정렬 알고리즘 지정")
+        display(df.sort_values(by="Score", kind="quicksort"))
+        display(df.sort_values(by="Score", kind="heapsort"))
+        display(df.sort_values(by="Score", kind="mergesort"))
+
+        print()
+        print("sort_values() 메서드를 이용한 DataFrame 정렬 > 사용자 지정 함수 사용을 통한 정렬")
+        display(df.sort_values(by="Name", key=lambda col: col.str.lower()))
+
+
+
 
 
 if __name__ == '__main__':
