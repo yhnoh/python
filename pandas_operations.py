@@ -9,7 +9,7 @@ class MyTestCase(unittest.TestCase):
     None: 파이썬 객체의 Null 값을 나타냄
     NaN (Not a Number): 부동소수점의 Null 값을 나타냄
     """
-    def test_something(self):
+    def test_handle_null_dataframe(self):
         df = pd.DataFrame({
             'First Score': [100, 90, np.nan, 95],
              'Second Score': [30, 45, 56, np.nan],
@@ -89,3 +89,41 @@ class MyTestCase(unittest.TestCase):
         print("dropna() 메서드를 통한 null 값이 포함된 행 제거 > axis 옵션을 사용하여 null이 포함된 열 제거")
         display(df.dropna(axis='columns'))
 
+    def test_drop_duplication(self):
+        """
+        1. subset: Specifies the columns to check for duplicates. If not provided all columns are considered.
+
+        2. keep: Finds which duplicate to keep:
+        'first' (default): Keeps the first occurrence, removes subsequent duplicates.
+        'last': Keeps the last occurrence and removes previous duplicates.
+        False: Removes all occurrences of duplicates.
+        3. inplace: If True it modifies the original DataFrame directly. If False (default), returns a new DataFrame.
+        """
+
+        df = pd.DataFrame({
+            "Name": ["Alice", "Bob", "Alice", "David"],
+            "Age": [25, 30, 25, 40],
+            "City": ["NY", "LA", "NY", "Chicago"]
+        })
+
+        print()
+        print("drop_duplicates() 메서드를 통한 중복 제거")
+        print(df.drop_duplicates())
+
+        df = pd.DataFrame({
+            'Name': ['Alice', 'Bob', 'Alice', 'David'],
+            'Age': [25, 30, 25, 40],
+            'City': ['NY', 'LA', 'SF', 'Chicago']
+        })
+
+        print()
+        print("drop_duplicates() 메서드를 통한 중복 제거 > subset 옵션 사용을 통한 특정 컬럼 중복 제거")
+        ## 1개 이상의 컬럼 지정 가능
+        print(df.drop_duplicates(subset=['Name']))
+
+
+        print()
+        print("drop_duplicates() 메서드를 통한 중복 제거 > keep 옵션 사용을 중복 제거 방식 지정")
+        print(df.drop_duplicates(subset=['Name'], keep="last"))
+        ## 중복된 값 모두 제거
+        print(df.drop_duplicates(subset=['Name'], keep=False))
