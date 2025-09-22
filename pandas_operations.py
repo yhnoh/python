@@ -144,3 +144,93 @@ class MyTestCase(unittest.TestCase):
         print("astype() 메서드를 통한 데이터 타입 변환")
         df = df.astype({"Age": float, "Salary": float})
         print(df.dtypes)
+
+    def test_manipulate_string(self):
+
+        df = pd.DataFrame({
+            'Names': ['Gulshan', 'Shashank', 'Bablu', 'Abhishek', 'Anand', np.nan, 'Pratap'],
+            'City': ['Delhi', 'Mumbai', 'Kolkata', 'Delhi', 'Chennai', 'Bangalore', 'Hyderabad']
+        })
+
+        print()
+        print("DataFrame 원본 타입 확인")
+        print(df.dtypes)
+
+        df = df.astype('string')
+        print()
+        print("DataFrame String 타입 변환")
+        print(df.dtypes)
+
+        print("string 타입 메서드 활용")
+        print("lower() 메서드를 통한 소문자 변환")
+        display(df["Names"].str.lower())
+
+        print()
+        print("upper() 메서드를 통한 소문자 변환")
+        display(df["Names"].str.upper())
+
+
+        print()
+        print("strip() 메서드를 앞뒤 공백 제거")
+        display(df["Names"].str.strip())
+
+        print()
+        print("split() 메서드를 문자열 자르기")
+        df["Split_Name"] = df["Names"].str.split("a")
+        display(df)
+
+        print()
+        print("len() 메서드를 이용한 문자열 길이 확인")
+        display(df["Names"].str.len())
+
+        print()
+        print("cat() 메서드를 이용한 문자열 합치기")
+        display(df["Names"].str.cat(sep=","))
+
+        print()
+        print("get_dummies() 메서드를 이용한 One-Hot Encoding: 인덱스에 따른 존재여부에 대한 값을 0과 1로 표현")
+        display(df["City"].str.get_dummies())
+
+        print()
+        print("startswith() 메서드를 문자열 존재 여부 확인")
+        display(df["Names"].str.startswith("G"))
+
+        print()
+        print("endswith() 메서드를 문자열 존재 여부 확인")
+        display(df["Names"].str.endswith("h"))
+
+        print()
+        print("replace() 메서드를 이용한 문자열 치환")
+        display(df["Names"].str.replace("Gulshan", "Gaurav"))
+
+        print()
+        print("repeat() 메서드를 이용한 문자열 반복")
+        display(df["Names"].str.repeat(2))
+
+        print()
+        print("count() 메서드를 이용한 문자열 패턴 개수 확인")
+        display(df["Names"].str.count("a"))
+
+        print()
+        print("find() 메서드를 이용한 문자열 패턴 위치 확인")
+        display(df["Names"].str.find("a"))
+
+        print()
+        print("findall() 메서드를 이용한 전체 문자열 패턴 확인")
+        display(df["Names"].str.findall("a"))
+
+        print()
+        print("islower() 메서드를 이용한 소문자 여부 확인")
+        display(df["Names"].str.islower())
+
+        print()
+        print("isupper() 메서드를 이용한 대문자 여부 확인")
+        display(df["Names"].str.isupper())
+
+        print()
+        print("isnumeric() 메서드를 이용한 숫자 치환 가능 여부 확인")
+        display(df["Names"].str.isnumeric())
+
+        print()
+        print("swapcase() 메서드를 이용한 대문자 <-> 소문자 변환")
+        display(df["Names"].str.swapcase())
