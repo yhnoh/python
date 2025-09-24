@@ -9,3 +9,6 @@
 > https://wikidocs.net/book/1
 > https://www.geeksforgeeks.org/python/numpy-tutorial/
 > https://www.geeksforgeeks.org/pandas/pandas-tutorial/
+> https://skyil.tistory.com/50
+> https://blog.naver.com/magnking/222627837376 <br/>
+> [Pandas > API reference](https://pandas.pydata.org/docs/reference/index.html)
